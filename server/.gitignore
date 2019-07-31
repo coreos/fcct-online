@@ -2,3 +2,4 @@ example.yaml
 fcct-*
 app-signing-pubkey.gpg
 .vscode
+tmp/*
