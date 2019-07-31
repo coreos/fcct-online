@@ -5,7 +5,7 @@
             <img src="../assets/Logo_RH_RGB_Reverse_Tight_Crop.svg" alt="Red Hat">
         </a>
         <p class="copyright">
-            Copyright ©2019 Red Hat, Inc.</p>
+            Copyright ©{{ year }} Red Hat, Inc.</p>
     </div>
 </div>
 </template>
@@ -13,6 +13,19 @@
 <script>
 export default {
   name: 'Footer',
+  data() {
+    return {
+      year: 0,
+    };
+  },
+  methods: {
+    getYear() {
+      this.year = new Date().getFullYear();
+    },
+  },
+  created() {
+    this.getYear();
+  },
 };
 </script>
 
