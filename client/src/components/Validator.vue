@@ -1,5 +1,5 @@
 <template>
-<div class="co-p-validate">
+<div id="container" class="col-lg-12 col-md-12 col-sm-12">
   <form id="validate">
     <div class="row">
       <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
@@ -70,12 +70,9 @@ export default {
 <style scoped>
 #validate-config {
   height: 60vh;
-  width: 100%;
   position: relative;
-  left: 50px;
   background: transparent;
   border: 0px;
-  resize: none;
   font-size: 10pt;
   font-family: monospace;
   line-height: 14px !important;
@@ -83,15 +80,15 @@ export default {
 }
 #validate-results {
   height: 60vh;
-  width: 100%;
   position: relative;
-  left: 50px;
   background: transparent;
   border: 0px;
-  resize: none;
   font-size: 10pt;
   font-family: monospace;
   line-height: 14px !important;
   box-shadow: 0 0 3px rgba(153,153,153,.75)
+}
+#container {
+  overflow: auto;
 }
 </style>

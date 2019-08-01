@@ -18,6 +18,6 @@ export default {
 nav {
     padding-bottom: 0.1em;
     background-color: #fff;
-    box-shadow: 0 0 3px rgba(153,153,153,.75)
+    box-shadow: 0 0 3px rgba(153,153,153,.75);
 }
 </style>

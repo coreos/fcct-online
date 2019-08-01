@@ -1,5 +1,5 @@
 <template>
-  <div class="content">
+  <div id="content">
     <Introduction/>
     <Validator/>
   </div>
