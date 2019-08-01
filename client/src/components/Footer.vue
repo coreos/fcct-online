@@ -1,6 +1,6 @@
 <template>
-<div class="row redhat-footer">
-    <div class="container col-md-12 col-lg-12 col-sm-12">
+<div class="redhat-footer container col-md-12 col-lg-12 col-sm-12">
+    <div>
         <a href="https://www.redhat.com" class="redhat-logo">
             <img src="../assets/Logo_RH_RGB_Reverse_Tight_Crop.svg" alt="Red Hat">
         </a>
@@ -37,6 +37,7 @@ export default {
     position: relative;
     bottom: 0;
     width: 100%;
+    overflow: auto;
 }
 .redhat-logo {
     float: left;
