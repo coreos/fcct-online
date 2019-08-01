@@ -7,13 +7,13 @@
         <div class="co-p-validate-wrapper">
           <div class="co-p-validate-lines"></div>
           <!-- eslint-disable-next-line -->
-          <textarea v-model="fcc_config" id="validate-config" wrap="off" spellcheck="false" autofocus=""></textarea>
+          <textarea v-model="fcc_config" id="validate-config" wrap="off" spellcheck="false" autofocus="" rows="40"></textarea>
         </div>
       </div>
       <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
         <h4>Transpiled Ignition Config:</h4>
         <!-- eslint-disable-next-line -->
-        <textarea readonly v-model="ignition_config" id="validate-results" wrap="off" spellcheck="false" autofocus=""></textarea>
+        <textarea readonly v-model="ignition_config" id="validate-results" wrap="off" spellcheck="false" autofocus="" rows="40"></textarea>
       </div>
     </div>
     <!-- eslint-disable-next-line -->
@@ -69,7 +69,7 @@ export default {
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
 #validate-config {
-  height: 60vh;
+  width: 45vw;
   position: relative;
   background: transparent;
   border: 0px;
@@ -79,7 +79,7 @@ export default {
   box-shadow: 0 0 3px rgba(153,153,153,.75)
 }
 #validate-results {
-  height: 60vh;
+  width: 45vw;
   position: relative;
   background: transparent;
   border: 0px;
@@ -87,6 +87,9 @@ export default {
   font-family: monospace;
   line-height: 14px !important;
   box-shadow: 0 0 3px rgba(153,153,153,.75)
+}
+#validate-submit {
+  margin-top: 0.5em;
 }
 #container {
   overflow: auto;
