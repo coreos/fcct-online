@@ -34,6 +34,9 @@ export default {
 .redhat-footer {
     background: #000;
     margin-top: 1em;
+    position: relative;
+    bottom: 0;
+    width: 100%;
 }
 .redhat-logo {
     float: left;
