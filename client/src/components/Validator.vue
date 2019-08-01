@@ -76,7 +76,8 @@ export default {
   font-size: 10pt;
   font-family: monospace;
   line-height: 14px !important;
-  box-shadow: 0 0 3px rgba(153,153,153,.75)
+  box-shadow: 0 0 3px rgba(153,153,153,.75);
+  resize: none;
 }
 #validate-results {
   width: 45vw;
@@ -86,7 +87,8 @@ export default {
   font-size: 10pt;
   font-family: monospace;
   line-height: 14px !important;
-  box-shadow: 0 0 3px rgba(153,153,153,.75)
+  box-shadow: 0 0 3px rgba(153,153,153,.75);
+  resize: none;
 }
 #validate-submit {
   margin-top: 0.5em;
