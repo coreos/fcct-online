@@ -63,6 +63,12 @@ export default {
       this.toIgnitionConfig();
     },
   },
+  created() {
+    if (this.$route.params.fcc_config) {
+      this.fcc_config = this.$route.params.fcc_config;
+      this.toIgnitionConfig();
+    }
+  },
 };
 </script>
 
