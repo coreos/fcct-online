@@ -15,7 +15,7 @@ export default new Router({
     },
     {
       path: '/:fcc_config',
-      name: 'home',
+      name: 'home-with-config',
       component: Home,
     },
   ],

@@ -11,7 +11,7 @@ import Introduction from '@/components/Introduction.vue';
 import Validator from '@/components/Validator.vue';
 
 export default {
-  name: 'content',
+  name: 'main-body',
   components: {
     Introduction,
     Validator,

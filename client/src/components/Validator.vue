@@ -47,7 +47,7 @@ export default {
       axios.get(path)
         .then((res) => {
           try {
-            this.ignition_config = JSON.parse(res.data.ignition_config);
+            this.ignition_config = JSON.parse(res.data.ignition_config.ignition_config);
           } catch (err) {
             this.ignition_config = res.data.ignition_config;
           }
