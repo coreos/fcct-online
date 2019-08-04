@@ -43,7 +43,7 @@ export default {
     },
     toIgnitionConfig() {
       const urlConfig = this.convertFccToUrl();
-      const path = 'http://127.0.0.1:5000/config/'.concat(urlConfig);
+      const path = '/config/'.concat(urlConfig);
       axios.get(path)
         .then((res) => {
           try {
