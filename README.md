@@ -1,29 +1,37 @@
 # fcct-online
 
-## Project setup
-```
-npm install
+# Run locally with container
+
+```bash
+$ git clone https://github.com/zonggen/fcct-online.git
+$ cd fcct-online/server && ./setup.sh && cd ..
+$ podman build -t web:latest .
+$ podman run -d --name flask-vue -e "PORT=8765" -p 8007:8765 web:latest
 ```
 
-### Compiles and hot-reloads for development
+The app is now running on http://localhost:8007/
+
+## Clean up:
 ```
-npm run serve
+$ podman stop flask-vue
+$ podman rm flask-vue
 ```
 
-### Compiles and minifies for production
+# Run locally without container
+
+```bash
+$ git clone https://github.com/zonggen/fcct-online.git
+$ cd fcct-online/server && ./setup.sh
+$ python3.7 -m venv env
+$ source env/bin/activate
+(env)$ pip install -r requirements.txt
+(env)$ python app.py
 ```
-npm run build
+In another terminal tab/window:
+```bash
+$ cd client
+$ npm install
+$ npm run serve
 ```
 
-### Run your tests
-```
-npm run test
-```
-
-### Lints and fixes files
-```
-npm run lint
-```
-
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
+The app is now running on http://localhost:8080
