@@ -31,7 +31,12 @@ In another terminal tab/window:
 ```bash
 $ cd client
 $ npm install
+$ sed -i -e 's/\/config\//http:\/\/127.0.0.1:5000\/config\//g' src/components/Validator.vue
 $ npm run serve
 ```
-
 The app is now running on http://localhost:8080
+
+## Clean up:
+```bash
+$ sed -i -e 's/http:\/\/127.0.0.1:5000\/config\//\/config\//g' src/components/Validator.vue
+```
