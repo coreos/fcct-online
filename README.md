@@ -1,6 +1,6 @@
 # fcct-online
 
-# Run locally with container
+## Run locally with container
 
 ```bash
 $ git clone https://github.com/zonggen/fcct-online.git
@@ -11,13 +11,13 @@ $ podman run -d --name flask-vue -e "PORT=8765" -p 8007:8765 web:latest
 
 The app is now running on http://localhost:8007/
 
-## Clean up:
+### Clean up:
 ```
 $ podman stop flask-vue
 $ podman rm flask-vue
 ```
 
-# Run locally without container
+## Run locally without container
 
 ```bash
 $ git clone https://github.com/zonggen/fcct-online.git
@@ -36,7 +36,7 @@ $ npm run serve
 ```
 The app is now running on http://localhost:8080
 
-## Clean up:
+### Clean up:
 ```bash
 $ sed -i -e 's/http:\/\/127.0.0.1:5000\/config\//\/config\//g' src/components/Validator.vue
 ```
