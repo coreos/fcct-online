@@ -21,3 +21,11 @@ export default {
   },
 };
 </script>
+
+<style>
+#home {
+  min-height: 100%;
+  min-height: 100vh;
+  position: relative;
+}
+</style>

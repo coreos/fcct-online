@@ -18,3 +18,9 @@ export default {
   },
 };
 </script>
+
+<style>
+#content {
+  position: relative;
+}
+</style>
