@@ -97,6 +97,13 @@ export default {
       this.visible = this.fcc_config ? true : false;
       this.encoded_url = this.convertFccToUrl();
     },
+    handleScroll() {
+      // eslint-disable-next-line
+      const scrollTop = document.querySelector('#validate-config').scrollTop;
+      const elem = document.querySelector('.co-p-validate-lines');
+      // eslint-disable-next-line
+      elem.style['margin-top'] = (-1 * scrollTop) + 'px';
+    },
   },
 
   created() {
@@ -106,6 +113,10 @@ export default {
       this.showURL();
       this.toIgnitionConfig();
     }
+  },
+
+  mounted() {
+    document.getElementById('validate-config').addEventListener('scroll', this.handleScroll);
   },
 };
 </script>
@@ -126,7 +137,7 @@ export default {
 }
 #validate-config {
   width: 45vw;
-  left: 45px;
+  left: 40px;
   position: absolute;
   background: transparent;
   border: 0px;
@@ -175,7 +186,7 @@ export default {
   resize: none;
 }
 .co-p-validate-lines {
-  width: 40px;
+  width: 35px;
   padding-right: 5px;
   position: absolute;
   top: 0px;
