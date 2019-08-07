@@ -1,6 +1,7 @@
 import os
 import uuid
 import json
+import re
 
 from subprocess import Popen, PIPE, STDOUT
 import urllib.parse as parse
@@ -38,6 +39,12 @@ def fcc_to_ignition():
         response_object = {'success': True, 'message': json.loads(stdout.decode())}
     except:
         errmsg = stdout.decode()
+
+        # format error message
+        line_no_info = re.findall('[ |\n]*line \d:.*', errmsg)
+        for str in line_no_info:
+            errmsg = errmsg.replace(str, '\n' + str.strip() + '\n')
+
         response_object = {'success': False, 'message': errmsg}
 
     return jsonify(response_object)
