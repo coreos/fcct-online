@@ -59,9 +59,13 @@ export default {
       axios.post(serverURL, postData)
         .then((res) => {
           try {
-            this.ignition_config = JSON.parse(res.data.ignition_config.ignition_config);
+            if (res.data.success) {
+              this.ignition_config = JSON.stringify(res.data.message, null, 2);
+            } else {
+              this.ignition_config = res.data.message;
+            }
           } catch (err) {
-            this.ignition_config = res.data.ignition_config;
+            this.ignition_config = '';
           }
         })
         .catch((error) => {

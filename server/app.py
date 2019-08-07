@@ -1,5 +1,6 @@
 import os
 import uuid
+import json
 
 from subprocess import Popen, PIPE, STDOUT
 import urllib.parse as parse
@@ -33,7 +34,12 @@ def fcc_to_ignition():
         stdin=PIPE, stdout=PIPE, stderr=STDOUT)
     stdout = ignition_config.communicate(input=post_data.get('config_string').encode())[0]
 
-    response_object['ignition_config'] = stdout.decode()
+    try:
+        response_object = {'success': True, 'message': json.loads(stdout.decode())}
+    except:
+        errmsg = stdout.decode()
+        response_object = {'success': False, 'message': errmsg}
+
     return jsonify(response_object)
 
 if __name__ == '__main__':
