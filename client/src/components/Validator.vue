@@ -5,15 +5,19 @@
       <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
         <h4>Enter Fedora CoreOS Config:</h4>
         <div class="co-p-validate-wrapper">
-          <div class="co-p-validate-lines"></div>
+          <div class="co-p-validate-lines">
+            <div v-for="index in lines" :key="index">{{ index }}</div>
+          </div>
           <!-- eslint-disable-next-line -->
           <textarea v-model="fcc_config" id="validate-config" wrap="off" spellcheck="false" autofocus="" rows="40"></textarea>
         </div>
       </div>
       <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
         <h4>Transpiled Ignition Config:</h4>
-        <!-- eslint-disable-next-line -->
-        <textarea readonly v-model="ignition_config" id="validate-results" wrap="off" spellcheck="false" autofocus="" rows="40"></textarea>
+        <div class="co-p-validate-results-wrapper">
+          <!-- eslint-disable-next-line -->
+          <textarea readonly v-model="ignition_config" id="validate-results" wrap="off" spellcheck="false" autofocus="" rows="40"></textarea>
+        </div>
       </div>
     </div>
     <!-- eslint-disable-next-line -->
@@ -44,15 +48,23 @@ export default {
     };
   },
 
+  computed: {
+    // eslint-disable-next-line
+    lines: function () {
+      const defaultLines = 40;
+      const fcc = this.fcc_config.split(/\r|\r\n|\n/);
+      const fccLines = fcc.length;
+      return Math.max(defaultLines, fccLines);
+    },
+  },
+
   methods: {
     cleanIgnitionBox() {
       this.ignition_config = '';
     },
-
     convertFccToUrl() {
       return clientURL.concat(encodeURIComponent(this.fcc_config));
     },
-
     toIgnitionConfig() {
       this.encoded_url = this.convertFccToUrl();
       const postData = { config_string: this.fcc_config };
@@ -75,13 +87,11 @@ export default {
           console.error(error);
         });
     },
-
     submit(e) {
       e.preventDefault();
       this.cleanIgnitionBox();
       this.toIgnitionConfig();
     },
-
     showURL() {
       // eslint-disable-next-line
       this.visible = this.fcc_config ? true : false;
@@ -104,6 +114,7 @@ export default {
 <style scoped>
 #validate-config {
   width: 45vw;
+  padding-left: 30px;
   position: relative;
   background: transparent;
   border: 0px;
@@ -146,5 +157,19 @@ export default {
   line-height: 14px !important;
   box-shadow: 0 0 3px rgba(153,153,153,.75);
   resize: none;
+}
+.co-p-validate-lines {
+  width: 30px;
+  position: absolute;
+  top: 40px;
+  left: 10px;
+  border-right: 1px solid #eee;
+  font-size: 10pt;
+  font-family: monospace;
+  line-height: 14px !important;
+  text-align: right;
+  color: #ccc;
+  padding-top: 2px;
+  height: 560px;
 }
 </style>
