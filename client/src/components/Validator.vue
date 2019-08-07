@@ -112,23 +112,39 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
+.co-p-validate-wrapper {
+  position: relative;
+  height: 560px;
+  width: 100%;
+  font-size: 14px;
+  line-height: 1.428571429;
+  border-radius: 4px;
+  -webkit-box-shadow: inset 0 1px 1px rgba(0,0,0,0.075);
+  box-shadow: 0 0 3px rgba(153,153,153,.75);
+  border: 0px;
+  overflow: hidden;
+}
 #validate-config {
   width: 45vw;
-  padding-left: 30px;
-  position: relative;
+  left: 45px;
+  position: absolute;
   background: transparent;
   border: 0px;
   font-size: 10pt;
   font-family: monospace;
   line-height: 14px !important;
-  box-shadow: 0 0 3px rgba(153,153,153,.75);
   resize: none;
+}
+#validate-config:focus {
+  outline-color: transparent;
+  outline-style: none;
 }
 #validate-results {
   width: 45vw;
   position: relative;
   background: transparent;
   border: 0px;
+  border-radius: 4px;
   font-size: 10pt;
   font-family: monospace;
   line-height: 14px !important;
@@ -159,10 +175,11 @@ export default {
   resize: none;
 }
 .co-p-validate-lines {
-  width: 30px;
+  width: 40px;
+  padding-right: 5px;
   position: absolute;
-  top: 40px;
-  left: 10px;
+  top: 0px;
+  left: 0px;
   border-right: 1px solid #eee;
   font-size: 10pt;
   font-family: monospace;
