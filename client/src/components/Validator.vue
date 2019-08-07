@@ -60,8 +60,10 @@ export default {
         .then((res) => {
           try {
             if (res.data.success) {
+              document.getElementById('validate-results').style.color = 'green';
               this.ignition_config = JSON.stringify(res.data.message, null, 2);
             } else {
+              document.getElementById('validate-results').style.color = 'red';
               this.ignition_config = res.data.message;
             }
           } catch (err) {
