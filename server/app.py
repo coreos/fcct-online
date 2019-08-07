@@ -41,11 +41,13 @@ def fcc_to_ignition():
         errmsg = stdout.decode()
 
         # format error message
-        line_no_info = re.findall('[ |\n]*line \d:.*', errmsg)
+        line_no_info = re.findall(r'[ |\n]*line \d:', errmsg)
+        err_lines = []
         for str in line_no_info:
-            errmsg = errmsg.replace(str, '\n' + str.strip() + '\n')
+            errmsg = errmsg.replace(str, '\n' + str.strip())
+            err_lines.append(int(re.search(r'\d+', str).group()))
 
-        response_object = {'success': False, 'message': errmsg}
+        response_object = {'success': False, 'message': errmsg, 'err_lines': err_lines}
 
     return jsonify(response_object)
 

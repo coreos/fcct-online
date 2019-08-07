@@ -6,7 +6,7 @@
         <h4>Enter Fedora CoreOS Config:</h4>
         <div class="co-p-validate-wrapper">
           <div class="co-p-validate-lines">
-            <div v-for="index in lines" :key="index">{{ index }}</div>
+            <div v-for="index in lines" :key="index" v-bind:id="'lineno-' + index">{{ index }}</div>
           </div>
           <!-- eslint-disable-next-line -->
           <textarea v-model="fcc_config" id="validate-config" wrap="off" spellcheck="false" autofocus="" rows="40"></textarea>
@@ -76,6 +76,12 @@ export default {
               this.ignition_config = JSON.stringify(res.data.message, null, 2);
             } else {
               document.getElementById('validate-results').style.color = 'red';
+              res.data.err_lines.forEach((lineno) => {
+                // eslint-disable-next-line
+                document.getElementById('lineno-' + lineno).style.color = 'red';
+                // eslint-disable-next-line
+                document.getElementById('lineno-' + lineno).style.background = '#fcd9dd';
+              });
               this.ignition_config = res.data.message;
             }
           } catch (err) {
