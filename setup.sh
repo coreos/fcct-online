@@ -1,9 +1,8 @@
 #!/bin/bash
-
 set -x
 
 ver='v0.1.0'
-
+cd server
 rm -f ./fcct-*
 
 # Download fcct binary and detached signature
@@ -18,5 +17,6 @@ gpg --import app-signing-pubkey.gpg
 gpg --verify fcct-x86_64-unknown-linux-gnu.asc fcct-x86_64-unknown-linux-gnu
 
 chmod +x fcct-x86_64-unknown-linux-gnu
+cd ..
 
 echo "Finish setup"
