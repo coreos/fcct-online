@@ -8,6 +8,7 @@ from flask_cors import CORS
 
 # configuration
 DEBUG = True
+MAX_LENGTH = 31415
 
 # instantiate the app
 app = Flask(__name__)
@@ -25,6 +26,10 @@ def fcc_to_ignition():
 
     post_data = request.get_json()
     response_object = {}
+
+    # check length of config_string
+    if (len(post_data.get('config_string').encode()) > MAX_LENGTH):
+        return jsonify('failed: FCC string too long'), 400
 
     # run fcct on the config
     ignition_config = Popen(
