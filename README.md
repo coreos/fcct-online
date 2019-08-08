@@ -1,5 +1,7 @@
 # fcct-online
 
+[![Docker Repository on Quay](https://quay.io/repository/zonggen/fcct-online/status "Docker Repository on Quay")](https://quay.io/repository/zonggen/fcct-online)
+
 ## Run locally with container
 
 ```bash
