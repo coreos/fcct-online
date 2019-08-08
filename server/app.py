@@ -22,10 +22,6 @@ def fcc_to_ignition():
     post_data = request.get_json()
     response_object = {}
 
-    # handle empty POST body
-    if post_data.get('config_string') == '':
-        return jsonify(response_object)
-
     # run fcct on the config
     ignition_config = Popen(
         './fcct-x86_64-unknown-linux-gnu',

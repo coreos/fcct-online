@@ -63,6 +63,25 @@ export default {
     cleanIgnitionBox() {
       this.ignition_config = '';
     },
+    clearLineColorAll() {
+      this.current_lineno.forEach((lineno) => {
+        // eslint-disable-next-line
+        document.getElementById('lineno-' + lineno).style.setProperty('color', '#ccc');
+        // eslint-disable-next-line
+        document.getElementById('lineno-' + lineno).style.setProperty('background', 'initial');
+      });
+      this.current_lineno = [];
+    },
+    setLineColorAll(linenoList) {
+      this.clearLineColorAll();
+      linenoList.forEach((lineno) => {
+        this.current_lineno.push(lineno);
+        // eslint-disable-next-line
+        document.getElementById('lineno-' + lineno).style.color = 'red';
+        // eslint-disable-next-line
+        document.getElementById('lineno-' + lineno).style.background = '#fcd9dd';
+      });
+    },
     convertFccToUrl() {
       return clientURL.concat(encodeURIComponent(this.fcc_config));
     },
@@ -73,32 +92,21 @@ export default {
         .then((res) => {
           try {
             if (res.data.success) {
+              this.clearLineColorAll();
               document.getElementById('validate-results').style.color = 'green';
-              this.current_lineno.forEach((lineno) => {
-                // eslint-disable-next-line
-                document.getElementById('lineno-' + lineno).style.setProperty('color', '#ccc');
-                // eslint-disable-next-line
-                document.getElementById('lineno-' + lineno).style.setProperty('background', 'initial');
-              });
-              this.current_lineno = [];
               this.ignition_config = JSON.stringify(res.data.message, null, 2);
             } else {
+              this.setLineColorAll(res.data.err_lines);
               document.getElementById('validate-results').style.color = 'red';
-              res.data.err_lines.forEach((lineno) => {
-                this.current_lineno = [];
-                this.current_lineno.push(lineno);
-                // eslint-disable-next-line
-                document.getElementById('lineno-' + lineno).style.color = 'red';
-                // eslint-disable-next-line
-                document.getElementById('lineno-' + lineno).style.background = '#fcd9dd';
-              });
               this.ignition_config = res.data.message;
             }
           } catch (err) {
+            this.clearLineColorAll();
             this.ignition_config = '';
           }
         })
         .catch((error) => {
+          this.clearLineColorAll();
           // eslint-disable-next-line
           console.error(error);
         });
