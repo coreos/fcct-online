@@ -28,10 +28,10 @@ h1 {
 }
 p {
   text-align: left;
+  margin-bottom: 0;
 }
 #intro {
-  margin-top: 2em;
-  margin-bottom: 0.67em;
+  margin-top: 1em;
   position: relative;
 }
 </style>

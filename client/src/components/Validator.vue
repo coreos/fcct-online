@@ -2,7 +2,7 @@
 <div id="container" class="col-lg-12 col-md-12 col-sm-12">
   <form id="validate">
     <div class="row">
-      <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+      <div class="col-lg-6 col-md-12 col-sm-12 col-xs-12">
         <h4>Enter Fedora CoreOS Config:</h4>
         <div class="co-p-validate-wrapper">
           <div class="co-p-validate-lines">
@@ -12,7 +12,7 @@
           <textarea v-model="fcc_config" id="validate-config" wrap="off" spellcheck="false" autofocus="" rows="40"></textarea>
         </div>
       </div>
-      <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+      <div class="col-lg-6 col-md-12 col-sm-12 col-xs-12">
         <h4>Transpiled Ignition Config:</h4>
         <div class="co-p-validate-results-wrapper">
           <!-- eslint-disable-next-line -->
@@ -147,6 +147,13 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
+h4 {
+  margin-top: 0.5em;
+  margin-bottom: 0.5em;
+}
+.row {
+  margin-bottom: 0.6em;
+}
 .co-p-validate-wrapper {
   position: relative;
   height: 560px;
@@ -159,9 +166,22 @@ export default {
   border: 0px;
   overflow: hidden;
 }
+.co-p-validate-results-wrapper {
+  position: relative;
+  height: 560px;
+  width: 100%;
+  font-size: 14px;
+  line-height: 1.428571429;
+  border-radius: 4px;
+  -webkit-box-shadow: inset 0 1px 1px rgba(0,0,0,0.075);
+  box-shadow: 0 0 3px rgba(153,153,153,.75);
+  border: 0px;
+  overflow: hidden;
+}
 #validate-config {
-  width: 45vw;
+  width: 94%;
   left: 40px;
+  padding-right: 0;
   position: absolute;
   background: transparent;
   border: 0px;
@@ -175,16 +195,19 @@ export default {
   outline-style: none;
 }
 #validate-results {
-  width: 45vw;
-  position: relative;
+  width: 98%;
+  left: 1%;
+  position: absolute;
   background: transparent;
   border: 0px;
-  border-radius: 4px;
   font-size: 10pt;
   font-family: monospace;
   line-height: 14px !important;
-  box-shadow: 0 0 3px rgba(153,153,153,.75);
   resize: none;
+}
+#validate-results:focus {
+  outline-color: transparent;
+  outline-style: none;
 }
 #validate-submit {
   margin-top: 0.5em;
@@ -199,7 +222,7 @@ export default {
   margin-bottom: 1em;
 }
 #encoded-url-box {
-  width: 95vw;
+  width: 100%;
   position: relative;
   background: transparent;
   border: 0px;
@@ -208,6 +231,10 @@ export default {
   line-height: 14px !important;
   box-shadow: 0 0 3px rgba(153,153,153,.75);
   resize: none;
+}
+#encoded-url-box:focus {
+  outline-color: transparent;
+  outline-style: none;
 }
 .co-p-validate-lines {
   width: 35px;
