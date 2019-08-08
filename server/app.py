@@ -19,6 +19,10 @@ CORS(app, resources={r'/*': {'origins': '*'}})
 
 @app.route('/config/', methods=['POST'])
 def fcc_to_ignition():
+    # make sure request content type is json
+    if not request.mimetype == 'application/json':
+        return jsonify('failed: Content-type must be application/json'), 401
+
     post_data = request.get_json()
     response_object = {}
 
@@ -29,6 +33,7 @@ def fcc_to_ignition():
     stdout = ignition_config.communicate(
         input=post_data.get('config_string').encode())[0]
 
+    # construct response object
     try:
         response_object = {'success': True,
                            'message': json.loads(stdout.decode())}
