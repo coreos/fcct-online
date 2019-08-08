@@ -4,24 +4,24 @@
 
 ```bash
 $ git clone https://github.com/zonggen/fcct-online.git
-$ cd fcct-online/server && ./setup.sh && cd ..
-$ podman build -t web:latest .
-$ podman run -d --name flask-vue -e "PORT=8765" -p 8007:8765 web:latest
+$ cd fcct-online/ && ./setup.sh
+$ podman build -t fcct-online:latest .
+$ podman run -d --name fcct-online -e "PORT=8765" -p 8007:8765 fcct-online:latest
 ```
 
 The app is now running on http://localhost:8007/
 
 ### Clean up:
 ```
-$ podman stop flask-vue
-$ podman rm flask-vue
+$ podman stop fcct-online
+$ podman rm fcct-online
 ```
 
 ## Run locally without container
 
 ```bash
 $ git clone https://github.com/zonggen/fcct-online.git
-$ cd fcct-online/server && ./setup.sh
+$ cd fcct-online/ && ./setup.sh && cd server
 $ python3.7 -m venv env
 $ source env/bin/activate
 (env)$ pip install -r requirements.txt
