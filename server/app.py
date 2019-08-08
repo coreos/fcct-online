@@ -1,14 +1,10 @@
-import os
-import uuid
 import json
 import re
 
 from subprocess import Popen, PIPE, STDOUT
-import urllib.parse as parse
 
 from flask import Flask, jsonify, request
 from flask_cors import CORS
-
 
 # configuration
 DEBUG = True
@@ -20,12 +16,13 @@ app.config.from_object(__name__)
 # enable CORS
 CORS(app, resources={r'/*': {'origins': '*'}})
 
+
 @app.route('/config/', methods=['POST'])
 def fcc_to_ignition():
     post_data = request.get_json()
     response_object = {}
 
-    # handle '/config/'
+    # handle empty POST body
     if post_data.get('config_string') == '':
         return jsonify(response_object)
 
@@ -33,11 +30,13 @@ def fcc_to_ignition():
     ignition_config = Popen(
         './fcct-x86_64-unknown-linux-gnu',
         stdin=PIPE, stdout=PIPE, stderr=STDOUT)
-    stdout = ignition_config.communicate(input=post_data.get('config_string').encode())[0]
+    stdout = ignition_config.communicate(
+        input=post_data.get('config_string').encode())[0]
 
     try:
-        response_object = {'success': True, 'message': json.loads(stdout.decode())}
-    except:
+        response_object = {'success': True,
+                           'message': json.loads(stdout.decode())}
+    except (json.decoder.JSONDecodeError):
         errmsg = stdout.decode()
 
         # format error message
@@ -47,9 +46,12 @@ def fcc_to_ignition():
             errmsg = errmsg.replace(str, '\n' + str.strip())
             err_lines.append(int(re.search(r'\d+', str).group()))
 
-        response_object = {'success': False, 'message': errmsg, 'err_lines': err_lines}
+        response_object = {'success': False,
+                           'message': errmsg,
+                           'err_lines': err_lines}
 
     return jsonify(response_object)
+
 
 if __name__ == '__main__':
     app.run(debug=True, port=5000)
