@@ -2,11 +2,16 @@
 
 [![Docker Repository on Quay](https://quay.io/repository/zonggen/fcct-online/status "Docker Repository on Quay")](https://quay.io/repository/zonggen/fcct-online)
 
-## Run locally with container
-
+## Run locally in container
+Pull image from quay.io:
+```bash
+$ podman pull quay.io/zonggen/fcct-online:latest
+$ podman run -d --name fcct-online -e "PORT=8765" -p 8007:8765 quay.io/zonggen/fcct-online:latest
+```
+or build local image:
 ```bash
 $ git clone https://github.com/zonggen/fcct-online.git
-$ cd fcct-online/ && ./setup.sh
+$ cd fcct-online/ && ./setup.sh --local
 $ podman build -t fcct-online:latest .
 $ podman run -d --name fcct-online -e "PORT=8765" -p 8007:8765 fcct-online:latest
 ```
@@ -14,7 +19,7 @@ $ podman run -d --name fcct-online -e "PORT=8765" -p 8007:8765 fcct-online:lates
 The app is now running on http://localhost:8007/
 
 ### Clean up:
-```
+```bash
 $ podman stop fcct-online
 $ podman rm fcct-online
 ```
@@ -23,7 +28,7 @@ $ podman rm fcct-online
 
 ```bash
 $ git clone https://github.com/zonggen/fcct-online.git
-$ cd fcct-online/ && ./setup.sh && cd server
+$ cd fcct-online/ && ./setup.sh --local && cd server
 $ python3.7 -m venv env
 $ source env/bin/activate
 (env)$ pip install -r requirements.txt
