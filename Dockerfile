@@ -1,5 +1,5 @@
 # build
-FROM node:11.12.0-alpine as build-vue
+FROM node:10.16-alpine as build-vue
 WORKDIR /app
 ENV PATH /app/node_modules/.bin:$PATH
 COPY ./client/package*.json ./
@@ -7,24 +7,20 @@ RUN npm install
 COPY ./client .
 RUN npm run build
 
+
 # production
-FROM nginx:stable-alpine as production
+FROM registry.access.redhat.com/ubi8/ubi as production
 WORKDIR /app
-RUN apk update && apk add --no-cache python3 && \
-    python3 -m ensurepip && \
-    rm -r /usr/lib/python*/ensurepip && \
-    pip3 install --upgrade pip setuptools && \
-    if [ ! -e /usr/bin/pip ]; then ln -s pip3 /usr/bin/pip ; fi && \
-    if [[ ! -e /usr/bin/python ]]; then ln -sf /usr/bin/python3 /usr/bin/python; fi && \
-    rm -r /root/.cache
-RUN apk update && apk add --no-cache gnupg curl gcc python3-dev musl-dev
-COPY --from=build-vue /app/dist /usr/share/nginx/html
 COPY ./nginx/default.conf /etc/nginx/conf.d/default.conf
 COPY ./server/requirements.txt ./
 COPY ./setup.sh ./
+
+RUN yum install -y gnupg curl python3-devel python3-pip nginx && \
+    pip3 install -r requirements.txt && \
+    pip3 install gunicorn
+
+COPY --from=build-vue /app/dist /usr/share/nginx/html
 RUN ./setup.sh --container
-RUN pip install -r requirements.txt
-RUN pip install gunicorn
 COPY ./server .
 CMD gunicorn -b 127.0.0.1:5000 app:app --daemon --log-file logfile && \
       sed -i -e 's/$PORT/'"$PORT"'/g' /etc/nginx/conf.d/default.conf && \
