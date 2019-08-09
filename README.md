@@ -12,7 +12,7 @@ $ podman run -d --name fcct-online -e "PORT=8765" -p 8007:8765 quay.io/zonggen/f
 or build local image:
 ```bash
 $ git clone https://github.com/zonggen/fcct-online.git
-$ cd fcct-online/ && ./setup.sh --local
+$ cd fcct-online/
 $ podman build -t fcct-online:latest .
 $ podman run -d --name fcct-online -e "PORT=8765" -p 8007:8765 fcct-online:latest
 ```
