@@ -1,4 +1,11 @@
+#!/usr/bin/env python3
+"""
+Flask application code that provides a web
+service for checking fcct configs.
+"""
+
 import json
+import os
 import re
 
 from subprocess import Popen, PIPE, STDOUT
@@ -6,9 +13,11 @@ from subprocess import Popen, PIPE, STDOUT
 from flask import Flask, jsonify, request
 from flask_cors import CORS
 
-# configuration
-DEBUG = True
-MAX_LENGTH = 31415
+# configuration which is read by app.config.from_object
+#: If the server should run in debug mode
+DEBUG = os.getenv('ONLINE_FCCT_DEBUG', False)
+#: The max length allowed for the posted fcct config
+MAX_LENGTH = os.getenv('ONLINE_FCCT_MAX_LENGTH', 31415)
 
 # instantiate the app
 app = Flask(__name__)
@@ -20,6 +29,12 @@ CORS(app, resources={r'/*': {'origins': '*'}})
 
 @app.route('/config/', methods=['POST'])
 def fcc_to_ignition():
+    """
+    Handles web ui request to turn fcc to ignition.
+
+    :returns: JSON Flask response
+    :rtype: flask.Response
+    """
     # make sure request content type is json
     if not request.mimetype == 'application/json':
         return jsonify('failed: Content-type must be application/json'), 401
@@ -48,9 +63,9 @@ def fcc_to_ignition():
         # format error message
         line_no_info = re.findall(r'[ |\n]*line \d:', errmsg)
         err_lines = []
-        for str in line_no_info:
-            errmsg = errmsg.replace(str, '\n' + str.strip())
-            err_lines.append(int(re.search(r'\d+', str).group()))
+        for section in line_no_info:
+            errmsg = errmsg.replace(section, '\n' + section.strip())
+            err_lines.append(int(re.search(r'\d+', section).group()))
 
         response_object = {'success': False,
                            'message': errmsg,
@@ -60,4 +75,5 @@ def fcc_to_ignition():
 
 
 if __name__ == '__main__':
+    # If the module is called directly, run a debug server
     app.run(debug=True, port=5000)
