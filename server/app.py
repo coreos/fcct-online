@@ -35,16 +35,27 @@ def fcc_to_ignition():
     :returns: JSON Flask response
     :rtype: flask.Response
     """
+    response_object = {
+        'message': '',
+        'success': False,
+    }
+
     # make sure request content type is json
     if not request.mimetype == 'application/json':
-        return jsonify('failed: Content-type must be application/json'), 401
+        response_object['message'] = (
+            'failed: Content-type must be application/json')
+        return jsonify(response_object), 400
 
     post_data = request.get_json()
-    response_object = {}
+
+    if post_data.get('config_string') is None:
+        response_object['message'] = 'failed: config_string must be set'
+        return jsonify(response_object), 400
 
     # check length of config_string
     if (len(post_data.get('config_string').encode()) > MAX_LENGTH):
-        return jsonify('failed: FCC string too long'), 400
+        response_object['message'] = 'failed: FCC string too long'
+        return jsonify(response_object), 400
 
     # run fcct on the config
     ignition_config = Popen(
@@ -55,8 +66,8 @@ def fcc_to_ignition():
 
     # construct response object
     try:
-        response_object = {'success': True,
-                           'message': json.loads(stdout.decode())}
+        response_object['success'] = True
+        response_object['message'] = json.loads(stdout.decode())
     except (json.decoder.JSONDecodeError):
         errmsg = stdout.decode()
 
@@ -67,9 +78,9 @@ def fcc_to_ignition():
             errmsg = errmsg.replace(section, '\n' + section.strip())
             err_lines.append(int(re.search(r'\d+', section).group()))
 
-        response_object = {'success': False,
-                           'message': errmsg,
-                           'err_lines': err_lines}
+        response_object['success'] = False
+        response_object['message'] = errmsg
+        response_object['err_lines'] = err_lines
 
     return jsonify(response_object)
 
