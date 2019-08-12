@@ -50,8 +50,7 @@ export default {
   },
 
   computed: {
-    // eslint-disable-next-line
-    lines: function () {
+    lines() {
       const defaultLines = 40;
       const fcc = this.fcc_config.split(/\r|\r\n|\n/);
       const fccLines = fcc.length;
@@ -60,31 +59,32 @@ export default {
   },
 
   methods: {
+    // clean the ignition config textbox
     cleanIgnitionBox() {
       this.ignition_config = '';
     },
+    // reset the color of error lines
     clearLineColorAll() {
       this.current_lineno.forEach((lineno) => {
-        // eslint-disable-next-line
-        document.getElementById('lineno-' + lineno).style.setProperty('color', '#ccc');
-        // eslint-disable-next-line
-        document.getElementById('lineno-' + lineno).style.setProperty('background', 'initial');
+        document.getElementById(`lineno-${lineno}`).style.setProperty('color', '#ccc');
+        document.getElementById(`lineno-${lineno}`).style.setProperty('background', 'initial');
       });
       this.current_lineno = [];
     },
+    // set the color of error lines
     setLineColorAll(linenoList) {
       this.clearLineColorAll();
       linenoList.forEach((lineno) => {
         this.current_lineno.push(lineno);
-        // eslint-disable-next-line
-        document.getElementById('lineno-' + lineno).style.color = 'red';
-        // eslint-disable-next-line
-        document.getElementById('lineno-' + lineno).style.background = '#fcd9dd';
+        document.getElementById(`lineno-${lineno}`).style.color = 'red';
+        document.getElementById(`lineno-${lineno}`).style.background = '#fcd9dd';
       });
     },
+    // generate url from fcc
     convertFccToUrl() {
       return clientURL.concat(encodeURIComponent(this.fcc_config));
     },
+    // send fcc to server and set ignition config from response
     toIgnitionConfig() {
       this.encoded_url = this.convertFccToUrl();
       const postData = { config_string: this.fcc_config };
@@ -111,22 +111,22 @@ export default {
           console.error(error);
         });
     },
+    // submit button callback
     submit(e) {
       e.preventDefault();
       this.cleanIgnitionBox();
       this.toIgnitionConfig();
     },
+    // url button callback
     showURL() {
-      // eslint-disable-next-line
-      this.visible = this.fcc_config ? true : false;
+      this.visible = !!this.fcc_config;
       this.encoded_url = this.convertFccToUrl();
     },
+    // scroll function for fcc textbox
     handleScroll() {
-      // eslint-disable-next-line
-      const scrollTop = document.querySelector('#validate-config').scrollTop;
+      const { scrollTop } = document.querySelector('#validate-config');
       const elem = document.querySelector('.co-p-validate-lines');
-      // eslint-disable-next-line
-      elem.style['margin-top'] = (-1 * scrollTop) + 'px';
+      elem.style['margin-top'] = `${-1 * scrollTop}px`;
     },
   },
 
