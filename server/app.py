@@ -72,7 +72,7 @@ def fcc_to_ignition():
         errmsg = stdout.decode()
 
         # format error message
-        line_no_info = re.findall(r'[ |\n]*line \d:', errmsg)
+        line_no_info = re.findall(r'[ |\n]*line \d+:', errmsg)
         err_lines = []
         for section in line_no_info:
             errmsg = errmsg.replace(section, '\n' + section.strip())
