@@ -140,7 +140,20 @@ export default {
   },
 
   mounted() {
+    // Add event listener to extend line number
     document.getElementById('validate-config').addEventListener('scroll', this.handleScroll);
+    // Enable triple click to select all content
+    document.getElementById('validate-config').addEventListener('click', (e) => {
+      if (e.detail === 3) {
+        document.getElementById('validate-config').select();
+      }
+    });
+    // Enable triple click to select all content
+    document.getElementById('validate-results').addEventListener('click', (e) => {
+      if (e.detail === 3) {
+        document.getElementById('validate-results').select();
+      }
+    });
   },
 };
 </script>
