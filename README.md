@@ -48,3 +48,15 @@ The app is now running on http://localhost:8080
 ```bash
 $ sed -i -e 's/http:\/\/127.0.0.1:5000\/config\//\/config\//g' src/components/Validator.vue
 ```
+
+## Resources
+[Simple Example of Fedora CoreOS Configs](https://github.com/coreos/fcct/blob/master/docs/getting-started.md#writing-and-using-fedora-coreos-configs):
+```
+variant: fcos
+version: 1.0.0
+passwd:
+  users:
+    - name: core
+      ssh_authorized_keys:
+        - ssh-rsa AAAAB3NzaC1yc...
+```
