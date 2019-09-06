@@ -16,7 +16,9 @@ COPY ./server/requirements.txt ./
 COPY ./setup.sh ./
 
 RUN yum install -y gnupg curl python3-devel python3-pip nginx && \
-    pip3 install -r requirements.txt && \
+    yum clean all
+
+RUN pip3 install -r requirements.txt && \
     pip3 install gunicorn
 
 COPY --from=build-vue /app/dist /usr/share/nginx/html
