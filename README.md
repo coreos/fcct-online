@@ -1,7 +1,7 @@
 # fcct-online
 
 [![Docker Repository on Quay](https://quay.io/repository/zonggen/fcct-online/status "Docker Repository on Quay")](https://quay.io/repository/zonggen/fcct-online)
-[![Build Status](https://travis-ci.com/zonggen/fcct-online.svg?branch=master)](https://travis-ci.com/zonggen/fcct-online)
+[![Build Status](https://travis-ci.com/coreos/fcct-online.svg?branch=master)](https://travis-ci.com/coreos/fcct-online)
 
 ## Run locally in container
 Pull image from quay.io:
