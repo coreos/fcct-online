@@ -1,4 +1,4 @@
-# build
+# build client side static files
 FROM node:10.16-alpine as build-vue
 WORKDIR /app
 ENV PATH /app/node_modules/.bin:$PATH
@@ -8,22 +8,25 @@ COPY ./client .
 RUN npm run build
 
 
-# production
+# build server container with reverse proxy
 FROM registry.access.redhat.com/ubi8/ubi as production
 WORKDIR /app
-COPY ./nginx/default.conf /etc/nginx/conf.d/default.conf
-COPY ./server/requirements.txt ./
-COPY ./setup.sh ./
 
-RUN yum install -y gnupg curl python3-devel python3-pip nginx && \
+RUN yum install -y golang && \
+    mkdir -p $HOME/go && \
+    echo 'export GOPATH=$HOME/go' >> $HOME/.bashrc && \
+    source $HOME/.bashrc
+
+RUN yum install -y gnupg curl nginx && \
     yum clean all
 
-RUN pip3 install -r requirements.txt && \
-    pip3 install gunicorn
-
+COPY ./nginx/default.conf /etc/nginx/conf.d/default.conf
+COPY ./setup.sh ./
 COPY --from=build-vue /app/dist /usr/share/nginx/html
-RUN ./setup.sh --container
-COPY ./server .
-CMD gunicorn -b 127.0.0.1:5000 app:app --daemon --log-file logfile && \
-      sed -i -e 's/$PORT/'"$PORT"'/g' /etc/nginx/conf.d/default.conf && \
-      nginx -g 'daemon off;'
+COPY ./go-server .
+
+RUN ./setup.sh --container && go build ./main.go
+
+CMD sed -i -e 's/$PORT/'"$PORT"'/g' /etc/nginx/conf.d/default.conf && \
+    nginx && \
+    ./main

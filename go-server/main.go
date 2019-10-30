@@ -122,7 +122,7 @@ func configHandler(w http.ResponseWriter, r *http.Request) {
 		// checks if `config_string` has reasonal length
 		maxLen := 31415
 		maxLenStr := os.Getenv("ONLINE_FCCT_MAX_LENGTH")
-		if len(maxLenStr) == 0 {
+		if len(maxLenStr) > 0 {
 			maxLen, _ = strconv.Atoi(maxLenStr)
 		}
 		if len(pd.ConfigString) > maxLen {
