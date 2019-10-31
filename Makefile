@@ -1,4 +1,4 @@
-.PHONY: check test clean
+.PHONY: help setup build check test clean
 
 help:
 	@echo "Targets:"

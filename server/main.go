@@ -49,11 +49,11 @@ func writeResponse(w *http.ResponseWriter, res responseData, status int) {
 	(*w).Write(resJSON)
 }
 
-// runCommand runs the command and returns the error, stdout, and stderr
-func runCommand(command string, input string) (string, string, error) {
+// runFCCT runs the FCCT command and returns the error, stdout, and stderr
+func runFCCT(input string) (string, string, error) {
 	var stdout bytes.Buffer
 	var stderr bytes.Buffer
-	cmd := exec.Command("bash", "-c", command)
+	cmd := exec.Command(fcct)
 	cmd.Stdin = strings.NewReader(input)
 	cmd.Stdout = &stdout
 	cmd.Stderr = &stderr
@@ -132,7 +132,7 @@ func configHandler(w http.ResponseWriter, r *http.Request) {
 			return
 		}
 
-		out, stderr, err := runCommand(fmt.Sprintf("%s", fcct), pd.ConfigString)
+		out, stderr, err := runFCCT(pd.ConfigString)
 		if err != nil {
 			log.Println(stderr)
 			log.Println(err)
