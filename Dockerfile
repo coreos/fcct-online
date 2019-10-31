@@ -23,7 +23,7 @@ RUN yum install -y gnupg curl nginx && \
 COPY ./nginx/default.conf /etc/nginx/conf.d/default.conf
 COPY ./setup.sh ./
 COPY --from=build-vue /app/dist /usr/share/nginx/html
-COPY ./go-server .
+COPY ./server .
 
 RUN ./setup.sh --container && go build ./main.go
 

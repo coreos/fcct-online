@@ -43,7 +43,7 @@ eval set -- "$options"
 while true; do
     case "$1" in
         -l | --local)
-            cd ./go-server
+            cd ./server
             setup
             cd ..
             ;;

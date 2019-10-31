@@ -1,9 +1,6 @@
-language: python
-python:
-  - "3.6"
-install:
-  - "pip install -r server/requirements.txt"
-  - "pip install -r server/test-requirements.txt"
+language: go
+go:
+  - "1.12"
 script:
   - "make check"
   - "wget -O server/fcct-x86_64-unknown-linux-gnu https://github.com/coreos/fcct/releases/download/v0.2.0/fcct-x86_64-unknown-linux-gnu"

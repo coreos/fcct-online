@@ -74,13 +74,13 @@ func logMiddleware(handler http.HandlerFunc) http.HandlerFunc {
 }
 
 // configHandler handles config requests when they come as a POST
-// note: to enable CORS, it should handle OPTIONS as well
 func configHandler(w http.ResponseWriter, r *http.Request) {
 	// enable CORS
 	w.Header().Set("Access-Control-Allow-Origin", "*")
 	w.Header().Set("Access-Control-Allow-Methods", "POST, OPTIONS")
 	w.Header().Set("Access-Control-Allow-Headers", "Accept, Content-Type, Content-Length, Accept-Encoding, X-CSRF-Token, Authorization")
 
+	// note: to enable CORS, it should handle OPTIONS as well
 	if r.Method == "OPTIONS" {
 		return
 	}
