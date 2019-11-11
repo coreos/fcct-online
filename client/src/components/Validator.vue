@@ -94,11 +94,11 @@ export default {
             if (res.data.success) {
               this.clearLineColorAll();
               document.getElementById('validate-results').style.color = 'green';
-              this.ignition_config = JSON.stringify(res.data.message, null, 2);
+              this.ignition_config = JSON.stringify(res.data.ignition_config, null, 2);
             } else {
               this.setLineColorAll(res.data.err_lines);
               document.getElementById('validate-results').style.color = 'red';
-              this.ignition_config = res.data.message;
+              this.ignition_config = res.data.err_msg;
             }
           } catch (err) {
             this.clearLineColorAll();
