@@ -164,7 +164,6 @@ func configHandler(w http.ResponseWriter, r *http.Request) {
 		var messageJSON map[string]interface{}
 		_ = json.Unmarshal([]byte(out), &messageJSON)
 
-		log.Println("Successfully convert to Ignition config")
 		res.Success = true
 		res.IgnitionConfig = messageJSON
 		writeResponse(&w, res, http.StatusOK)
