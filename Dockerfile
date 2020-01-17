@@ -27,6 +27,4 @@ COPY ./server .
 
 RUN ./setup.sh --container && go build ./main.go
 
-CMD sed -i -e 's/$PORT/'"$PORT"'/g' /etc/nginx/conf.d/default.conf && \
-    nginx && \
-    ./main
+CMD nginx && ./main
