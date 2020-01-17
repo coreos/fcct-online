@@ -7,14 +7,14 @@
 Pull image from quay.io:
 ```bash
 $ podman pull quay.io/zonggen/fcct-online:latest
-$ podman run -d --rm --name fcct-online -e "PORT=8765" -p 8007:8765 quay.io/zonggen/fcct-online:latest
+$ podman run -d --rm --name fcct-online -p 8007:8007 quay.io/zonggen/fcct-online:latest
 ```
 or build local image:
 ```bash
 $ git clone https://github.com/coreos/fcct-online.git
 $ cd fcct-online/
 $ podman build -t fcct-online:latest .
-$ podman run -d --rm --name fcct-online -e "PORT=8765" -p 8007:8765 fcct-online:latest
+$ podman run -d --rm --name fcct-online -p 8007:8007 fcct-online:latest
 ```
 
 The app is now running on http://localhost:8007/
